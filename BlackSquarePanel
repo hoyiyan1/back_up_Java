@@ -1,0 +1,36 @@
+package crosswordgui;
+
+
+import javax.swing.JPanel;
+
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+
+public class BlackSquarePanel extends AbstractSquarePanel {
+ 	
+	public static final String blackSquare = "Black";
+
+	public BlackSquarePanel(JPanel panel, String symbol) { //ook voor de grey, blue and white
+		super(panel, symbol);
+		
+		//this.button.addActionListener(); //no actionListener needed.
+	}
+	
+
+	@Override
+	public String getTypeSquare() {
+		return blackSquare;
+	}
+
+	
+	@Override
+	public void setColorSquare() {
+		button.setBackground(Color.black);
+		
+		
+	}
+
+
+
+	
+}
