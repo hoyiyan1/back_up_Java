@@ -1,0 +1,59 @@
+package crosswordgui;
+
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+public class Panel {
+
+	
+	private JPanel p1, p2, p3;
+	private static final int dimensionOne = 300; //value doesn't change, so it is final.
+	private static final int matrixSize = 13;
+	private static final int matrixGreyRow = 1;
+	private static final int dimensionTwo = 100;
+	private static final int dimensionThree = 50;
+	private static final int dimensionThreeVert = 100 ;
+	
+	
+	public Panel() {
+		this.setDimensions(); //instantiate the variables with the functions
+	}
+
+	public void setDimensions() {
+		p1 = new JPanel(); //make new panel
+		p2 = new JPanel();
+		p3 = new JPanel();
+		p1.setPreferredSize(new Dimension(dimensionOne, dimensionOne)); //set the panel size
+		p1.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		//p2.setPreferredSize(new Dimension(dimensionOne, dimensionOne));
+		//p3.setPreferredSize(new Dimension(dimensionThree, dimensionThreeVert));
+		p1.setLayout(new GridLayout(matrixSize,matrixSize));
+		p2.setLayout(new GridLayout(matrixGreyRow, matrixSize));
+		p2.setBorder(BorderFactory.createEmptyBorder(10,50,30,50));
+		
+		
+		
+		
+	}
+	
+	public JPanel getPanelCrossword() {
+		return p1; //get the variable from this class
+	}
+	
+	public JPanel getPanelGrey() {
+		return p2;
+	}
+	public JPanel getPanelClues() {
+		return p3;
+	}
+
+	
+	
+	
+	
+	
+}
