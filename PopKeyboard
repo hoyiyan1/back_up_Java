@@ -1,0 +1,173 @@
+package crosswordgui;
+
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+
+public class PopKeyboard extends JDialog implements ActionListener {
+
+
+	private String[] firstSymbols = {"A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P"};
+	private String[] secondSymbols = {"Q", "S", "D", "F", "G", "H", "J", "K", "L", "M"};
+	private String[] thirdSymbols = {"W", "X", "C", "V", "B", "N"};
+	private String[] clueSymbols;
+	private static final int indexLetter = 2; //always the second letter from the string_matrix_element
+	private static final String setOfCharacters = "ABDEFGIJKLMNOPQRSTUVWXZ";
+	private static final int lengthPossibleLetters = 5;
+	private JButton button;
+	private String symbolBlue;
+	private char symbolKey;
+	private String clueLetters;
+	private static String possibleLetters = "";
+	private GenerateRandom symbolsRandom;
+	private String squareType;
+	String relativePath = "src/crosswordgui/";
+
+
+
+	public PopKeyboard(String squareType, JButton button, String symbolBlue) { //constructor method
+		this.button = button;
+		this.symbolBlue = symbolBlue;
+		this.squareType = squareType;
+		this.createDialog();
+		this.setKeyboard(squareType);
+		
+		
+	}
+	
+	public void setKeyboard(String squareType) {
+		switch(squareType) {
+		case "Blue":
+			this.setDialogBlue();
+			break;
+		case "Black": 
+			this.setDialogBlack();
+			break;
+		case "Regular":
+			this.setDialogRegular();
+			break;
+		case "Grey":
+			this.setDialogRegular();
+			break;
+		}
+		
+		
+		/*
+		if(squareType.equals("Blue")) {
+			this.setDialogBlue();
+		} else if(squareType.equals("Black")) {
+			this.setDialogBlack();
+		} else {
+			this.setDialogRegular(); 
+		}*/
+	}
+	
+	
+	
+
+	public void createDialog() {
+		new JDialog();
+		setLayout(new GridBagLayout());
+	}
+
+
+
+	//set keyboard when squareType is regular:
+	public void setDialogRegular() { 
+		GridBagConstraints r = new GridBagConstraints();
+		r.fill = GridBagConstraints.BOTH;
+
+		//initialize the keyboard keys
+		int counter = 0;
+		for (String symbol : this.firstSymbols) {
+			JButton button = new JButton(symbol);
+			button.addActionListener(this);
+			r.gridx = counter;
+			r.gridy = 0;
+			add(button, r); //add the component to the panel with the constraints. 
+			counter++;
+		}
+
+		counter = 0;
+		for (String symbol : this.secondSymbols) {
+			JButton button = new JButton(symbol);
+			button.addActionListener(this);
+			r.gridx = counter;
+			r.gridy = 1;
+			add(button, r);
+			counter++;
+		}
+
+		counter = 0;
+		for (int i = 0; i <= 5; i++) {
+			JButton button = new JButton(this.thirdSymbols[i]);
+			button.addActionListener(this);
+			r.gridx = counter;
+			r.gridy = 2;
+			add(button, r);
+			counter++;
+		}
+		pack();	
+
+	}
+	
+	public void generateRandom() {
+		symbolKey = symbolBlue.charAt(indexLetter);
+		symbolsRandom = new GenerateRandom(symbolKey);
+		
+		clueLetters = symbolsRandom.getClueLetters();
+		clueSymbols = clueLetters.split("");
+		//System.out.println(Arrays.deepToString(clueSymbols));
+	}
+	
+	
+	// set keyboard when squareType is Blue:
+	public void setDialogBlue() {
+		this.generateRandom();
+		GridBagConstraints b = new GridBagConstraints();
+		b.fill = GridBagConstraints.BOTH;
+		
+		 //puts the clues in a string Array
+		//System.out.println("Hellooo: " + clueSymbols);
+		
+		int numberC = 0;
+		for (String symbol : clueSymbols) {
+			JButton button = new JButton(symbol);
+			button.addActionListener(this);
+			b.gridx = numberC;
+			b.gridy = 0;
+			add(button, b); //add the component to the panel with the constraints. 
+			numberC++;
+		}
+		pack();	
+
+	}
+
+	public void setDialogBlack() {
+		//Do nothing
+	}
+	
+	public String getSymbol() {
+		return symbolBlue;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) { //take the action from the component that was induced
+		String keyLetter = ((JButton)e.getSource()).getText(); 
+		button.setText(keyLetter);		
+		this.setVisible(false);
+		
+
+
+
+	}
+}
