@@ -1,0 +1,41 @@
+package crosswordgui;
+
+import java.util.ArrayList;
+import java.util.Random;
+
+public class GenerateRandom {
+
+	
+	private static final int lengthPossibleLetters = 4;
+	private static final String setOfCharacters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	private ArrayList<Integer> numbers = new ArrayList<Integer>();
+	private Random random = new Random();
+	private String possibleLetters = "";
+	private String clueLetters;
+
+	
+	
+	
+	//constructor method
+	public GenerateRandom(char symbolKey) {
+		
+		while(possibleLetters.chars().count() < lengthPossibleLetters ) { //while it stays under 4, keep running
+			int randomInt = random.nextInt((setOfCharacters.length()-1)); //-1 because you don't want it to generate an int 26
+			if (!numbers.contains(randomInt)) { //check if number is repeated, if not retrieve a character at that index
+				char randomChar = setOfCharacters.charAt(randomInt);
+				possibleLetters += randomChar;
+		        numbers.add(randomInt); //add number to list so that it can not be generated anymore
+			}
+		}
+		clueLetters = possibleLetters + symbolKey; // retrieve the full combination.
+		//System.out.println(possibleLetters);
+		//System.out.println(numbers);
+		//System.out.println(clueLetters);
+	}
+	
+	
+	
+	public String getClueLetters() {
+		return clueLetters;
+	}
+}
