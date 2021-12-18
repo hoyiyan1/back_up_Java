@@ -1,0 +1,74 @@
+package crosswordgui;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class matrixGenerate {
+
+
+	private String [][] matrixArray;
+
+	public matrixGenerate(String filePath) {
+		this.readInput(filePath);
+	}
+	
+	public void readInput(String filePath) {
+		
+		String headerSize = ""; //defines how big the matrix needs to be
+		String matrixLayout = ""; //defines how the string layout should be of matrix
+		int matrixSizeRow = 0; //contains integer of row length
+		int matrixSizeColumn = 0; //contains integer of column length
+		String relativePath = "src/crosswordgui/";
+
+		try(Scanner fileName = new Scanner(new FileReader(relativePath+filePath))){
+			//read in the header file which is matrixSizeRow and matrixSizeColumn
+			headerSize = fileName.nextLine();
+			//System.out.println(headerSize);
+			StringTokenizer parts = new StringTokenizer(headerSize);
+			matrixSizeRow = Integer.parseInt(parts.nextToken()); //gives back 13
+			matrixSizeColumn = Integer.parseInt(parts.nextToken());
+			//layout of matrix
+			this.matrixArray = new String [matrixSizeRow][matrixSizeColumn]; //create 2D array
+			matrixLayout = fileName.nextLine(); 
+			int j = 0;
+			while(matrixLayout != null ) {
+				try {
+					StringTokenizer row = new StringTokenizer(matrixLayout); //splitting your lines into tokens
+					for(int i = 0; i < matrixSizeColumn; i++) {
+						String matrixElement = row.nextToken();
+						//System.out.println(matrixElement);
+						matrixArray[j][i] = matrixElement;
+
+					}
+					matrixLayout = fileName.nextLine();//read next line to start again
+					j++; //increase to go for next row
+				} catch(NoSuchElementException e) { //why does this need an error warning? 
+					//System.out.println("End of file.");
+					break;
+				}
+			}
+			System.out.println(Arrays.deepToString(matrixArray)); //print out the matrix for control
+			//System.out.println(matrixArray.length);
+
+		} catch(FileNotFoundException nf) {
+			System.out.println("File not found." + nf);
+		}
+	}
+
+	public String [][] getMatrix() {
+		return matrixArray;
+	}
+	
+	
+	public static void main(String[] args) {
+		matrixGenerate matrix = new matrixGenerate("input_crossword");
+		matrix.getMatrix();
+		System.out.println(Arrays.deepToString(matrix.getMatrix()));
+		
+	}
+	
+}
+
