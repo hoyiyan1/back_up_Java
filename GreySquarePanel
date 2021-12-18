@@ -1,0 +1,41 @@
+package crosswordgui;
+
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+
+public class GreySquarePanel extends AbstractSquarePanel{
+
+	
+	public static final String greySquare = "Grey";
+	
+	
+	//constructor method
+	public GreySquarePanel(JPanel panel, String symbol) {
+		super(panel, symbol);
+		button.addActionListener(keyboardEvent);
+	}
+
+	
+	
+	@Override
+	public String getTypeSquare() {
+		return greySquare;
+	}
+	
+
+	@Override
+	public void setColorSquare() {
+		button.setBackground(Color.gray);
+		
+	}
+
+
+
+
+	
+	
+}
