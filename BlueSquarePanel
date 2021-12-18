@@ -1,0 +1,50 @@
+package crosswordgui;
+
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+public class BlueSquarePanel extends AbstractSquarePanel {
+
+	private static final String blueSquare = "Blue";
+	public static final Color Lightblue = new Color(51,153,255);
+	private String symbolBlue;
+	 
+
+
+	public BlueSquarePanel(JPanel panel, String symbolBlue) {
+		super(panel, symbolBlue);
+		this.symbolBlue = symbolBlue;
+		button.addActionListener(keyboardEvent);
+		//this.setSymbol(symbolBlue);
+		
+	}
+
+	
+	public String getSymbol() {
+		return symbolBlue;
+	}
+	
+	/*public void setSymbol(String symbolBlue) {
+		this.symbolBlue = symbolBlue;
+	}*/
+
+
+	@Override
+	public String getTypeSquare() {
+		return blueSquare ;
+	}
+
+	@Override
+	public void setColorSquare() {
+		button.setBackground(Lightblue);
+
+	}
+	public void printScreen(String symbolBlue) {
+		System.out.println("This is the value for symbolBlue: " + symbolBlue );
+	}
+
+
+}
